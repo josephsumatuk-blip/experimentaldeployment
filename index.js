@@ -1,12 +1,10 @@
 const express = require('express')
 const morgan = require('morgan')
-const cors = require('cors')
 
 const app = express()
 
 app.use(express.static('dist'))
 app.use(express.json())
-app.use(cors())
 
 let persons = [
     { 
@@ -97,8 +95,12 @@ app.post('/api/persons', (request, response) => {
   response.json(person)
 })
 
-console.log("process.env.PORT: ", process.env.PORT)
+
 const PORT = process.env.PORT || 3001
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port 0.0.0.0:${PORT}`)
+const HOST = process.env.HOST || "localhost"
+console.log(`process.env.HOST: ${process.env.HOST}`)
+console.log(`process.env.PORT: ${process.env.PORT}`)
+
+app.listen(PORT, HOST, () => {
+  console.log(`Server running on port ${HOST}:${PORT}`)
 })
